@@ -1,0 +1,17 @@
+type Query {
+    employeeById(id: ID): Employee
+}
+
+type Employee {
+    id: ID
+    name: String
+    salary: Int
+    contact: Contact
+}
+
+type Contact {
+    id: ID
+    firstName: String
+    lastName: String
+    email: String
+}

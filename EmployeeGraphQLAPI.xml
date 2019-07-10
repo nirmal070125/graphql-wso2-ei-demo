@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<api xmlns="http://ws.apache.org/ns/synapse"
+     name="EmployeeGraphQLAPI"
+     context="/employees">
+   <resource methods="POST" url-mapping="/graphql">
+      <inSequence>
+         <log level="full"/>
+         <property name="query"
+                   expression="json-eval($.query)"
+                   scope="default"
+                   type="STRING"/>
+         <payloadFactory media-type="xml">
+            <format>
+               <Results>
+                  <Employees xmlns="">
+                     <Employee id="1">
+                        <name>Nirmal</name>
+                        <salary>11000000</salary>
+                        <contactId>100</contactId>
+                     </Employee>
+                     <Employee id="2">
+                        <name>John</name>
+                        <salary>222000000</salary>
+                        <contactId>200</contactId>
+                     </Employee>
+                  </Employees>
+                  <Contacts xmlns="">
+                     <Contact id="100">
+                        <firstName>Nirmal</firstName>
+                        <lastName>Fernando</lastName>
+                        <email>nirmal@wso2.com</email>
+                     </Contact>
+                     <Contact id="200">
+                        <firstName>John</firstName>
+                        <lastName>Mayor</lastName>
+                        <email>john@wso2.com</email>
+                     </Contact>
+                  </Contacts>
+               </Results>
+            </format>
+            <args/>
+         </payloadFactory>
+         <class name="com.wso2.CustomMediator">
+            <property name="schemaPath"
+                      value="/Users/Nirmal/Documents/schema.graphqls"/>
+         </class>
+         <enrich>
+            <source type="property" clone="true" property="result"/>
+            <target type="body"/>
+         </enrich>
+         <property name="messageType" value="application/json" scope="axis2"/>
+         <respond/>
+      </inSequence>
+   </resource>
+</api>

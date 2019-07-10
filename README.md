@@ -1,5 +1,5 @@
-# graphql-wso2-ei-demo
-Build a GraphQL API using WSO2 EI
+# GraphQL API Using WSO2 EI
+Demonstrate how to build a GraphQL API using WSO2 EI.
 
 ## Configurations
 
